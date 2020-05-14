@@ -22,6 +22,7 @@ Add the following line to ~init.el~:
  (shell . t)
  (C . t)
  (latex . t)
+ (ledger . t)
 ))
 
 
