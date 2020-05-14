@@ -11,7 +11,23 @@ Add the following line to ~init.el~:
 
 #+END_SRC
 
+** Include languages to org babel 
 
+#+BEGIN_SRC emacs-lisp
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '(
+ (python . t)
+ (js . t)
+ (shell . t)
+ (C . t)
+ (latex . t)
+))
+
+
+#+END_SRC
+
+#+RESULTS:
 
 ** Change Styling in Terminal
 
