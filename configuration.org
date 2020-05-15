@@ -39,10 +39,44 @@ Add the following line to ~init.el~:
 #+END_SRC
 
 
+** Package Management
+
+*** Straight
+See https://github.com/raxod502/straight.el#comparison-to-el-get .
+
+**** Log 
+I hope that this will work for most of my projects, I plan on using
+el-get if not (2020-05-15).
+
+*** Includ code
+#+BEGIN_SRC emacs-lisp
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+#+END_SRC
+
+#+RESULTS:
+: t
 
 ** UI
 
+*** Evil Mode
 
+#+BEGIN_SRC emacs-lisp
+(straight-use-package 'evil)
+#+END_SRC
+
+#+RESULTS:
+: t
 
 *** Desktop 
 
