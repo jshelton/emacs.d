@@ -1,4 +1,7 @@
 .emacs.desktop
 auto-save-list
 .emacs.desktop.lock
+configuration.elstraight
+elpa
 configuration.el
+straight
