@@ -2,7 +2,7 @@
 
 ** Instructions
 Add the following line to ~init.el~:
-(org-babel-load-file "~/.emacs.d/configuration.org")
+~(org-babel-load-file "~/.emacs.d/configuration.org")~
 
 ** Include common lisp goodies such as loop. 
 
@@ -12,7 +12,7 @@ Add the following line to ~init.el~:
 #+END_SRC
 
 ** Include languages to org babel 
-
+*** Enable Several languages
 #+BEGIN_SRC emacs-lisp
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -24,7 +24,13 @@ Add the following line to ~init.el~:
  (latex . t)
  (ledger . t)
 ))
+  
 
+#+END_SRC
+
+*** Remove message when running code evaluation
+#+BEGIN_SRC 
+(setq org-confirm-babel-evaluate nil)
 
 #+END_SRC
 
@@ -69,20 +75,27 @@ el-get if not (2020-05-15).
 
 ** UI
 
-*** Evil Mode
+*** Alarm Bell
+
+Using a visual Bell instead of audio bell. [[https://www.emacswiki.org/emacs/AlarmBell][Source]]
+
 
 #+BEGIN_SRC emacs-lisp
-(straight-use-package 'evil)
+
+;; (setq visible-bell 1) ;; displays an alert
+ (setq ring-bell-function 'ignore)
+
+
 #+END_SRC
 
 #+RESULTS:
-: t
+: ignore
 
 *** Desktop 
 
 **** Keep the workspace when closing and openning emacs. Force load without asking.
      :PROPERTIES:
-     :Created:  July  1, 2015
+     :CREATED:  July  1, 2015
      :SOURCE:   http://www.gnu.org/software/emacs/manual/html_node/emacs/Saving-Emacs-Sessions.html
      :END:
   
@@ -97,8 +110,23 @@ el-get if not (2020-05-15).
 
 (desktop-save-mode 1)
 
+#+END_SRC
+
+***** Can store other things in the desktop file ([[https://www.emacswiki.org/emacs?action=browse;oldid=DeskTop;id=Desktop][Example]])
+     :PROPERTIES:
+     :CREATED:  May 16,2020
+     :SOURCE:   https://www.emacswiki.org/emacs?action=browse;oldid=DeskTop;id=Desktop
+     :END:
+ 
+#+BEGIN_SRC emacs-lisp
+
+(setq history-length 250)
+(add-to-list 'desktop-globals-to-save 'file-name-history)
 
 #+END_SRC
+
+#+RESULTS:
+| desktop-missing-file-warning | tags-file-name | tags-table-list | search-ring | regexp-search-ring | register-alist | file-name-history |
 
 
 *** Autoload Changes
@@ -161,6 +189,10 @@ el-get if not (2020-05-15).
 *** Evil mode
 
 #+BEGIN_SRC emacs-lisp
+(straight-use-package 'evil)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Name: Joshua
@@ -171,11 +203,14 @@ el-get if not (2020-05-15).
 ;; Modified:
 
 ;; Enable Evil
-;;(require 'evil)
-;;(evil-mode 1)
+(require 'evil)
+(evil-mode 1)
 
 
 #+END_SRC
+
+#+RESULTS:
+: t
 
 **** Load Theme
 
@@ -200,3 +235,33 @@ el-get if not (2020-05-15).
 
 *** Stylizing
     
+** Packages
+
+*** Magit (git)
+:PROPERTIES:
+:SOURCE: 
+:CREATED: 2020-05
+:END:
+#
+#+BEGIN_SRC emacs-lisp
+(straight-use-package 'magit)
+(global-set-key (kbd "C-x g") 'magit-status)
+#+END_SRC
+
+#+RESULTS:
+: magit-status
+
+*** Projectile
+:PROPERTIES:
+:SOURCE: https://github.com/bbatsov/projectile   
+:CREATED: 2020-05-17
+:END:
+#+BEGIN_SRC emacs-lisp
+(straight-use-package 'projectile)
+(projectile-mode +1)
+(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map) ;; Overrides Print, which I don't do from emacs
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+#+END_SRC
+
+#+RESULTS:
+: projectile-command-map
